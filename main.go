@@ -3,12 +3,13 @@ package main
 import (
 	"image/color"
 	"log"
+	"sync"
 
 	"github.com/hajimehoshi/ebiten"
 )
 
 const (
-	screenWidth, screenHeight = 840, 560
+	screenWidth, screenHeight = 640, 360
 	boidCount                 = 500
 	viewRadius                = 13
 	adjRate                   = 0.015
@@ -18,6 +19,7 @@ var (
 	green   = color.RGBA{10, 255, 50, 255}
 	boids   [boidCount]*Boid
 	boidMap [screenWidth + 1][screenHeight + 1]int
+	rWlock  = sync.RWMutex{}
 )
 
 func update(screen *ebiten.Image) error {
